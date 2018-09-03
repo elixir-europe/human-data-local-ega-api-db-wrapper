@@ -57,6 +57,7 @@ public final class MyRequestTable extends Table<MyRequestTable.Record> {
             fields.put("ticket",ticket);
             return super.getRecordsWithAllFields(fields);
         } catch (DatabaseException ex) {
+            System.err.println(ex.toString());
             return null;
         }
     }
@@ -68,6 +69,7 @@ public final class MyRequestTable extends Table<MyRequestTable.Record> {
             fields.put("ip", ip);
             return super.getRecordsWithAllFields(fields);
         } catch (DatabaseException ex) {
+            System.err.println(ex.toString());
             return null;
         }
     }
@@ -78,6 +80,7 @@ public final class MyRequestTable extends Table<MyRequestTable.Record> {
             fields.put("ip", ip);
             return super.getRecordsWithOneOfFields(fields);
         } catch (DatabaseException ex) {
+            System.err.println(ex.toString());
             return null;
         }
     }

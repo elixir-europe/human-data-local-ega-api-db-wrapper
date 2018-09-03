@@ -91,7 +91,7 @@ public class EgaDownloadAgent {
                               this.api.myIP());
             }
         } catch (DatabaseException ex) {
-            System.out.println("DB Error (Pending Requests): " + ex.getLocalizedMessage());
+            System.err.println("DB Error (Pending Requests): " + ex.getLocalizedMessage());
         }
 
         this.api.setSetPath(dest_path);
@@ -151,7 +151,9 @@ public class EgaDownloadAgent {
                         runDownPar(tickets, this.threads);
                     } catch (IOException ex) {}
                     
-                    try {Thread.sleep(15000);} catch (InterruptedException ex) {}
+                    try {Thread.sleep(15000);} catch (InterruptedException ex) {
+                        System.err.println(ex.toString());
+                    }
                 }
                 
             } else {
@@ -168,7 +170,9 @@ public class EgaDownloadAgent {
                 }
             }
             this.completed.clear();
-            try {Thread.sleep(60000);} catch (InterruptedException ex) {}            
+            try {Thread.sleep(60000);} catch (InterruptedException ex) {
+                System.err.println(ex.toString());
+            }
         }
 
         // If shutdown is selected, once current downloads are complete indicated readiness for process to end
@@ -234,7 +238,9 @@ System.out.println("Tickets: " + tickets.length);
                 System.out.println("Starting over, canceling all downloads! Stalled for " + delta + "ms!");
                 for (int i=0; i<numThreads; i++) { // find threads that have ended
                     if (my_threads[i]!=null && my_threads[i].isAlive()) my_threads[i].stop();
-                    try {Thread.sleep(500);} catch (InterruptedException ex) {}
+                    try {Thread.sleep(500);} catch (InterruptedException ex) {
+                        System.err.println(ex.toString());
+                    }
                     my_threads[i] = null;
                     indices.add(i);
                 }
@@ -289,7 +295,9 @@ System.out.println("Tickets: " + tickets.length);
             ArrayList<MyRequestTable.Record> records = mrt.getRecords(ticket);
             if (records==null || records.size()==0)
                 System.out.println("Remove Success: " + ticket);
-        } catch (DatabaseException ex) {}            
+        } catch (DatabaseException ex) {
+            System.err.println(ex.toString());
+        }
     }    
 
     public String[] listRestRequests(String descriptor) {
@@ -310,7 +318,7 @@ System.out.println("Tickets: " + tickets.length);
 
             }                
         } catch (DatabaseException ex) {
-            System.out.println("DB Error: " + ex.getLocalizedMessage());
+            System.err.println("DB Error: " + ex.getLocalizedMessage());
         }
         
         return result;

@@ -55,6 +55,7 @@ public final class MyPendingRequestTable extends Table<MyPendingRequestTable.Rec
             fields.put("file_stable_id",file_stable_id);
             return super.getRecordsWithAllFields(fields);
         } catch (DatabaseException ex) {
+            System.err.println(ex.toString());
             return null;
         }
     }
