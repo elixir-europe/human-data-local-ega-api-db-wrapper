@@ -91,7 +91,7 @@ public class EgaDownloadAgent {
                               this.api.myIP());
             }
         } catch (DatabaseException ex) {
-            System.out.println("DB Error (Pending Requests): " + ex.getLocalizedMessage());
+            System.err.println("DB Error (Pending Requests): " + ex.getLocalizedMessage());
         }
 
         this.api.setSetPath(dest_path);
@@ -318,7 +318,7 @@ System.out.println("Tickets: " + tickets.length);
 
             }                
         } catch (DatabaseException ex) {
-            System.out.println("DB Error: " + ex.getLocalizedMessage());
+            System.err.println("DB Error: " + ex.getLocalizedMessage());
         }
         
         return result;

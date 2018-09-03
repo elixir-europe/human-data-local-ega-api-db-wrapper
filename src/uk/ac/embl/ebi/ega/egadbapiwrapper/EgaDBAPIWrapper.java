@@ -238,7 +238,7 @@ public class EgaDBAPIWrapper {
                     
                 }                
             } catch (DatabaseException ex) {
-                System.out.println("DB Error (Pending Requests): " + ex.getLocalizedMessage());
+                System.err.println("DB Error (Pending Requests): " + ex.getLocalizedMessage());
                 error = true;
             }
             
@@ -263,7 +263,7 @@ public class EgaDBAPIWrapper {
         System.out.println("Re-Building loal DB, because of error condition! Pending file information will be lost!");
         String path = dbPath();
         closeDB();
-        try { (new File(path)).delete(); } catch (Throwable th) {System.out.println(th.getLocalizedMessage());}        
+        try { (new File(path)).delete(); } catch (Throwable th) {System.err.println(th.getLocalizedMessage());}
         connectDB(this.api.getUser());
         updateDatabase();
     }
@@ -626,7 +626,7 @@ public class EgaDBAPIWrapper {
         try {
             Table.closeDatabase(MyPendingRequestTable.class.getPackage());
         } catch (DatabaseException ex) {
-            System.out.println("Error closing local db: " + ex.getLocalizedMessage());
+            System.err.println("Error closing local db: " + ex.getLocalizedMessage());
         }
     }
 }
