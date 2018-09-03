@@ -123,7 +123,9 @@ public class EgaDBAPIWrapper {
         this.user = username;
         
         String db_name = dbPath();
-        try {System.out.println("Using Cache DB at: " + (new File(db_name)).getCanonicalPath());} catch (Throwable th) {;}
+        try {System.out.println("Using Cache DB at: " + (new File(db_name)).getCanonicalPath());} catch (Throwable th) {
+            System.err.println(th.toString());
+        }
         
         // Connect to DB in a separate thread. Wait for 5 seconds to complete; otherwise
         // move on. The thread will update the object status when it is ready
@@ -132,7 +134,9 @@ public class EgaDBAPIWrapper {
         
         long time = System.currentTimeMillis();
         while ( ((System.currentTimeMillis())-time) < 5000 && x.isAlive() ) {
-            try {Thread.sleep(950);} catch (InterruptedException ex) {;}
+            try {Thread.sleep(950);} catch (InterruptedException ex) {
+                System.err.println(ex.toString());
+            }
         }
         
         //try {
@@ -294,7 +298,9 @@ public class EgaDBAPIWrapper {
         }
         
         // Return path, or loal DB name, if no write access
-        try {if (!f.exists()) f.createNewFile();} catch (Throwable th) {;}
+        try {if (!f.exists()) f.createNewFile();} catch (Throwable th) {
+            System.err.println(th.toString());
+        }
         if (f.exists() && f.canRead())
             return f.getAbsolutePath();
         else
@@ -410,7 +416,9 @@ public class EgaDBAPIWrapper {
                         }
                     }
                 }                
-            } catch (DatabaseException ex) {}
+            } catch (DatabaseException ex) {
+                System.err.println(ex.toString());
+            }
         }
         
         result = new EgaTicket[pending.size()];
@@ -505,7 +513,9 @@ public class EgaDBAPIWrapper {
                         }
                     }
                 }
-            } catch (DatabaseException ex) {}
+            } catch (DatabaseException ex) {
+                System.err.println(ex.toString());
+            }
             
             if (files_in_ds > 0 && result!=null && files_in_ds>result.length)
                 System.out.println("This request contains " + files_in_ds + " Pending files!");
@@ -541,7 +551,9 @@ public class EgaDBAPIWrapper {
                     System.out.println("No new files available for this request.");
                 else
                     System.out.println(cnt + " pending files were added to request: " + descriptor);
-            } catch (DatabaseException ex) {}
+            } catch (DatabaseException ex) {
+                System.err.println(ex.toString());
+            }
         } else {
             System.out.println("No new files available for this request.");
         }
@@ -589,7 +601,9 @@ public class EgaDBAPIWrapper {
             try {
                 MyPendingRequestTable mpt=(MyPendingRequestTable)getTableInstance(MyPendingRequestTable.class);
                 mpt.removeRequest(descriptor);
-            } catch (DatabaseException ex) {}            
+            } catch (DatabaseException ex) {
+                System.err.println(ex.toString());
+            }
         }
     }    
 
